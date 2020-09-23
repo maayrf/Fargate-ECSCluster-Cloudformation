@@ -27,7 +27,8 @@ Resources:
   ECRRepository:
     Type: AWS::ECR::Repository
     Properties:
-      RepositoryName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'ecs-automation']]
+      ##RepositoryName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'ecs-automation']]
+      RepositoryName: ecr-codepipeline
 
   # Create an S3 Bucket to store build artifacts
   S3Bucket:
@@ -89,6 +90,7 @@ Resources:
         EnvironmentVariables:
           - Name: ECR_REPOSITORY_URI
             Value: !Join [ ".", [ !Ref "AWS::AccountId", "dkr.ecr", !Ref "AWS::Region", !Join [ "/", [ "amazonaws.com", !Ref "ECRRepository" ] ] ] ]
+            #Value: 583004540853.dkr.ecr.us-east-1.amazonaws.com/ecs-automation
       Name: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'BuildProject']]
       ServiceRole: !Ref CodeBuildExecutionRole
       Source:
