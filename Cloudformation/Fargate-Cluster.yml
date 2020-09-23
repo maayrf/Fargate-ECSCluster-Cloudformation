@@ -4,13 +4,13 @@ Description: The CloudFormation template for the FARGATE ECS Cluster.
 Parameters:
   Stage:
     Type: String
-    Default: latest
+    Default: Deploy
   ContainerPort:
     Type: Number
     Default: 8080
   ImageURI:
     Type: String
-    Default: 583004540853.dkr.ecr.us-east-1.amazonaws.com/ecs-automation:latest
+    Default: 583004540853.dkr.ecr.us-east-1.amazonaws.com/ecr-codepipeline:latest
 
 Resources:
 
