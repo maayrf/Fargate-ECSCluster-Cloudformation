@@ -161,7 +161,7 @@ Resources:
       Name: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'TargetGroup']]
       Port: 80
       Protocol: HTTP
-      TargetType: ip
+      ##TargetType: ip ##del
       VpcId: !Ref VPC
 
   # Create a LoadBalancerListener and attach the TargetGroup and LoadBalancer
