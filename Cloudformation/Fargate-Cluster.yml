@@ -161,7 +161,7 @@ Resources:
       Name: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'TargetGroup']]
       Port: 80
       Protocol: HTTP
-      ##TargetType: ip ##del
+      TargetType: ip
       VpcId: !Ref VPC
 
   # Create a LoadBalancerListener and attach the TargetGroup and LoadBalancer
@@ -197,16 +197,3 @@ Resources:
         - ContainerName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'Container']]
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref TargetGroup
-
-  ###ROUTE53 - Domínio já existe na GoDaddy e esta atrelado ao Route53. Agora vinculará ao ELB###
-  myDNS:
-    Type: AWS::Route53::RecordSetGroup
-    Properties:
-      HostedZoneName: cloudsoluctions.com.
-      RecordSets:
-      - Name: elb.cloudsoluctions.com. ##O certificado criado no acm esta exatamente assim, sem o ponto no final.
-        Type: A
-        AliasTarget:
-          EvaluateTargetHealth: 'true'
-          HostedZoneId: !GetAtt 'LoadBalancer.CanonicalHostedZoneID'
-          DNSName: !GetAtt 'LoadBalancer.DNSName'
