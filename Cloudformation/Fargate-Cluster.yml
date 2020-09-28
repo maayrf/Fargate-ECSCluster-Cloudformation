@@ -124,8 +124,8 @@ Resources:
       VpcId: !Ref VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
+          FromPort: 443
+          ToPort: 443
           CidrIp: 0.0.0.0/0
 
   # Creat a security group for Containers and open in bound Container port from Load balancer security group to the Container 
@@ -168,12 +168,15 @@ Resources:
   LoadBalancerListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
+      ###ACESSO ACM###
+      Certificates:
+        - CertificateArn: "arn:aws:acm:us-east-1:583004540853:certificate/1899f613-283f-43e6-9e70-e9a0dcc650bf"
       DefaultActions: 
         - TargetGroupArn: !Ref TargetGroup
           Type: forward
       LoadBalancerArn: !Ref LoadBalancer
-      Port: 80
-      Protocol: HTTP
+      Port: 443
+      Protocol: HTTPS
 
   # Create an ECS Service and add created Cluster, TaskDefintion, Subnets, TargetGroup and SecurityGroup
   ECSService:
@@ -210,3 +213,6 @@ Resources:
           EvaluateTargetHealth: 'true'
           HostedZoneId: !GetAtt 'LoadBalancer.CanonicalHostedZoneID'
           DNSName: !GetAtt 'LoadBalancer.DNSName'
+
+ ###ACM###
+  ###Fazer certificado na console e vinculá-lo ao ELB
