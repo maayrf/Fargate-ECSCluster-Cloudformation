@@ -10,7 +10,7 @@ Parameters:
     Default: 8080
   ImageURI:
     Type: String
-    Default: 583004540853.dkr.ecr.us-east-1.amazonaws.com/ecr-codepipeline:latest
+    Default: 583004540853.dkr.ecr.us-east-1.amazonaws.com/ecr-codepipeline
 
 Resources:
 
