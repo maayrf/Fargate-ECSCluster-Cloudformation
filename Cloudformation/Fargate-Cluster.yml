@@ -197,3 +197,16 @@ Resources:
         - ContainerName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'Container']]
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref TargetGroup
+
+  ###ROUTE53###
+  myDNS:
+    Type: AWS::Route53::RecordSetGroup
+    Properties:
+      HostedZoneName: cloudsoluctions.com.
+      RecordSets:
+      - Name: ecs.cloudsoluctions.com. ##O certificado criado no acm esta exatamente assim, sem o ponto no final.
+        Type: A
+        AliasTarget:
+          EvaluateTargetHealth: 'true'
+          HostedZoneId: !GetAtt 'LoadBalancer.CanonicalHostedZoneID'
+          DNSName: !GetAtt 'LoadBalancer.DNSName'
